@@ -10,24 +10,11 @@ namespace Weather_parser
         public string name;
         public string pogoda;
     }
-    class Program
+    class Weather_writing
     {
         static void Main()
         {
             Choice();
-        }
-        static void Parsing(string city)
-        {
-            var html = $@"https://world-weather.ru/pogoda/russia/{city}/";
-
-            HtmlWeb web = new HtmlWeb();
-
-            var htmlDoc = web.Load(html);
-
-            var node = htmlDoc.DocumentNode.SelectSingleNode("//span[@class = 'dw-into']//text()");
-
-            Console.WriteLine("Погода на сегодня: " + node.InnerHtml);
-            Continue();
         }
         static void Choice()
         {
@@ -39,26 +26,26 @@ namespace Weather_parser
             {
                 case ConsoleKey.W:
                     Console.Clear();
-                    Parsing("moskva");
+                    Weather_Parser.Parsing("moskva");
                     break;
                 case ConsoleKey.A:
                     Console.Clear();
-                    Parsing("ulyanovsk");
+                    Weather_Parser.Parsing("ulyanovsk");
                     break;
                 case ConsoleKey.D:
                     Console.Clear();
-                    Parsing("kazan");
+                    Weather_Parser.Parsing("kazan");
                     break;
                 case ConsoleKey.S:
                     Console.Clear();
-                    Parsing("saint_petersburg");
+                    Weather_Parser.Parsing("saint_petersburg");
                     break;
                 default:
                     Main();
                     break;
             }
         }
-        static void Continue()
+        public static void Continue()
         {
             Console.WriteLine("\nПродолжить?");
             Console.WriteLine("Q - да\nE - нет");
@@ -73,6 +60,22 @@ namespace Weather_parser
                     Choice();
                     break;
             }
+        }
+    }
+    class Weather_Parser
+    {
+        public static void Parsing(string city)
+        {
+            var html = $@"https://world-weather.ru/pogoda/russia/{city}/";
+
+            HtmlWeb web = new HtmlWeb();
+
+            var htmlDoc = web.Load(html);
+
+            var node = htmlDoc.DocumentNode.SelectSingleNode("//span[@class = 'dw-into']//text()");
+
+            Console.WriteLine("Погода на сегодня: " + node.InnerHtml);
+            Weather_writing.Continue();
         }
     }
 }
