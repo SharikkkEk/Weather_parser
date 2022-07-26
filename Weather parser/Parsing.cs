@@ -34,7 +34,7 @@ namespace Weather_parser
                     break;
                 default:
                     Main();
-                    break;
+                    break; 
             }
 
             var html = $@"https://world-weather.ru/pogoda/russia/{city}/";
